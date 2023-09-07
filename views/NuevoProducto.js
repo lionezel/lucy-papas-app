@@ -1,8 +1,15 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { Container, Button, Text } from 'native-base'
 
 export default function NuevoProducto() {
   return (
-    <Text>NuevoProducto</Text>
+    <Container>
+      <View>
+        <Button>
+          <Text>Nueva Orden</Text>
+        </Button>
+      </View>
+    </Container>
   )
 }
