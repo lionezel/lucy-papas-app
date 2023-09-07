@@ -1,17 +1,50 @@
-import { Button, Container, HStack, Icon, InputRightAddon } from 'native-base'
-import React from 'react'
-import { Text } from 'react-native'
-
+import {
+  Box,
+  Button,
+  Container,
+  HStack,
+  Icon,
+  Input,
+  Stack,
+} from "native-base";
+import React, { useState } from "react";
+import { Text } from "react-native";
 
 export default function FormularioProducto() {
+  //State para cantidades
+  const [cantidad, setCantidad] = useState(1);
+
+  //Incrementa en uno la antidad
+  const incrementarUno = () => {
+    const nuevaCantidad = parseInt(cantidad) + 1
+    setCantidad(nuevaCantidad)
+  }
+
+  //Decrementar en uno la cantidad 
+  const decrementarUno = () => {
+    if(cantidad > 1) {
+      const nuevaCantidad = parseInt(cantidad) - 1
+      setCantidad(nuevaCantidad)
+    }
+  }
+
   return (
     <Container>
       <Text>Cantidad</Text>
-      <HStack>
-        <Button><Icon name='remove'/></Button>
-        <InputRightAddon>1</InputRightAddon>
-        <Button><Icon name='remove'/></Button>
-      </HStack>
+
+      <Button onPress={() => decrementarUno()}>
+        <Icon name="remove" />
+      </Button>
+
+      <Input
+        value={cantidad.toString()}
+        keyboardType="numeric"
+        onChangeText={(cantidad) => setCantidad(cantidad)}
+      />
+
+      <Button onPress={() => incrementarUno()}>
+        <Icon name="remove" />
+      </Button>
     </Container>
-  )
+  );
 }
