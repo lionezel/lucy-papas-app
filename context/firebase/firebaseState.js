@@ -1,9 +1,12 @@
 import React, { useReducer } from "react";
 
+import firebase from "../../firebase";
 import { FirebaseContext } from "./firebaseContext";
 import firebaseReducer from "./firebaseReducer";
 
 export const FirebaseState = (props) => {
+
+    console.log(firebase)
 
     //Crear state inicial
     const initialState = {
