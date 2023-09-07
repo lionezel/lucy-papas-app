@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import React from "react";
+import { NativeBaseProvider } from "native-base";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -20,65 +21,67 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <>
-      <FirebaseState>
-        <PedidosState>
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{
-                headerStyle: {
-                  backgroundColor: "#FFDA00",
-                },
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },
-              }}
-            >
-              <Stack.Screen
-                name="Nueva Orden"
-                component={NuevoProducto}
-                options={{
-                  title: "Nueva Orden",
+      <NativeBaseProvider>
+        <FirebaseState>
+          <PedidosState>
+            <NavigationContainer>
+              <Stack.Navigator
+                screenOptions={{
+                  headerStyle: {
+                    backgroundColor: "#FFDA00",
+                  },
+                  headerTitleStyle: {
+                    fontWeight: "bold",
+                  },
                 }}
-              />
-              <Stack.Screen
-                name="Menu"
-                component={Menu}
-                options={{
-                  title: "Nuestro menu",
-                }}
-              />
-              <Stack.Screen
-                name="DetalleProducto"
-                component={DetalleProducto}
-                options={{
-                  title: "Detalle producto",
-                }}
-              />
-              <Stack.Screen
-                name="FormularioProducto"
-                component={FormularioProducto}
-                options={{
-                  title: "Ordenar producto",
-                }}
-              />
-              <Stack.Screen
-                name="ResumenPedido"
-                component={ResumenPedido}
-                options={{
-                  title: "Resumen pedido",
-                }}
-              />
-              <Stack.Screen
-                name="ProgresoPedido"
-                component={ProgresoPedido}
-                options={{
-                  title: "Progreso del pedido",
-                }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </PedidosState>
-      </FirebaseState>
+              >
+                <Stack.Screen
+                  name="Nueva Orden"
+                  component={NuevoProducto}
+                  options={{
+                    title: "Nueva Orden",
+                  }}
+                />
+                <Stack.Screen
+                  name="Menu"
+                  component={Menu}
+                  options={{
+                    title: "Nuestro menu",
+                  }}
+                />
+                <Stack.Screen
+                  name="DetalleProducto"
+                  component={DetalleProducto}
+                  options={{
+                    title: "Detalle producto",
+                  }}
+                />
+                <Stack.Screen
+                  name="FormularioProducto"
+                  component={FormularioProducto}
+                  options={{
+                    title: "Ordenar producto",
+                  }}
+                />
+                <Stack.Screen
+                  name="ResumenPedido"
+                  component={ResumenPedido}
+                  options={{
+                    title: "Resumen pedido",
+                  }}
+                />
+                <Stack.Screen
+                  name="ProgresoPedido"
+                  component={ProgresoPedido}
+                  options={{
+                    title: "Progreso del pedido",
+                  }}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </PedidosState>
+        </FirebaseState>
+      </NativeBaseProvider>
     </>
   );
 }

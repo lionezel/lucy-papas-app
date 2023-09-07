@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 
-import PedidoContext from "./pedidosContext";
+import {PedidoContext} from "./pedidosContext"
 import PedidosReducer from "./pedidosReducer";
 
 export const PedidosState = (props) => {
@@ -14,9 +14,11 @@ export const PedidosState = (props) => {
     //useReducer con dispatch para ejecutar las funciones
     const [state, dispatch] = useReducer(PedidosReducer, initialState)
 
-  return <PedidosReducer.Provider
+  return (
+    <PedidoContext.Provider
     value={{
         pedido: state.pedido
     }}
-  >{props.children}</PedidosReducer.Provider>;
+  >{props.children}</PedidoContext.Provider>
+  ) 
 };
