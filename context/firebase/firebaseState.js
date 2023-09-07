@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 
-import firebase from "../../firebase";
+import { firebase } from "../../firebase/firebase";
 import { FirebaseContext } from "./firebaseContext";
 import firebaseReducer from "./firebaseReducer";
 import { OBTENER_PRODUCTOS } from "../../types";
@@ -20,7 +20,7 @@ export const FirebaseState = (props) => {
     firebase.db
       .collection("productos")
       .where("existencia", "==", true) //Traer solo los que esten en existencia
-      .onShanpshot(manejarSnaphot);
+      .onSnapshot(manejarSnaphot);
 
     function manejarSnaphot(snapshot) {
       let productos = snapshot.docs.map((doc) => {
