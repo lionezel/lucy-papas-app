@@ -8,8 +8,9 @@ import {
   Stack,
 } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
-import { Text } from "react-native";
+import { Alert, Text } from "react-native";
 import { PedidoContext } from "../context/pedidos/pedidosContext";
+import { globalStyles } from "../styles/global";
 
 export default function FormularioProducto() {
   //State para cantidades
@@ -45,6 +46,28 @@ export default function FormularioProducto() {
     }
   };
 
+  //Confirma si la orden es correcta
+  const confirmarOrden = () => {
+    Alert.alert(
+      '¿Deseas confirmar tu pedido?',
+      'Un pedido confirmado ya no se podra modificar',
+      [
+        {
+          text: 'Confirmar',
+          onPress: () => {
+            //Alamcenar el pedido al pedido principal
+
+            //Navegar hacia el resumen
+          },
+        },
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        }
+      ]
+    )
+  }
+
   return (
     <Container>
       <Text>Cantidad</Text>
@@ -64,6 +87,13 @@ export default function FormularioProducto() {
       </Button>
 
       <Text>Total: $ {total}</Text>
+
+      <Button
+        style={globalStyles.boton}
+        onPress={() => confirmarOrden() }
+      >
+        <Text style={globalStyles.botonTexto}>Agregar al producto</Text>
+      </Button>
     </Container>
   );
 }
