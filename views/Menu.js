@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export default function Menu() {
   //Context de firebase
-  const { obtenerProductos } = useContext(FirebaseContext);
+  const { menu, obtenerProductos } = useContext(FirebaseContext);
 
   useEffect(() => {
     obtenerProductos();
