@@ -7,26 +7,43 @@ import {
   Input,
   Stack,
 } from "native-base";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text } from "react-native";
+import { PedidoContext } from "../context/pedidos/pedidosContext";
 
 export default function FormularioProducto() {
   //State para cantidades
   const [cantidad, setCantidad] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  //Context de pedido
+  const { producto } = useContext(PedidoContext);
+  const { precio } = producto;
+
+  //En cuanto el componente carga, calcular la cantidad  a pagar
+  useEffect(() => {
+    calcularTotal();
+  }, [cantidad]);
+
+  //Calcular el total del producto por su cantidad
+  const calcularTotal = () => {
+    const totalPagar = precio * cantidad;
+    setTotal(totalPagar);
+  };
 
   //Incrementa en uno la antidad
   const incrementarUno = () => {
-    const nuevaCantidad = parseInt(cantidad) + 1
-    setCantidad(nuevaCantidad)
-  }
+    const nuevaCantidad = parseInt(cantidad) + 1;
+    setCantidad(nuevaCantidad);
+  };
 
-  //Decrementar en uno la cantidad 
+  //Decrementar en uno la cantidad
   const decrementarUno = () => {
-    if(cantidad > 1) {
-      const nuevaCantidad = parseInt(cantidad) - 1
-      setCantidad(nuevaCantidad)
+    if (cantidad > 1) {
+      const nuevaCantidad = parseInt(cantidad) - 1;
+      setCantidad(nuevaCantidad);
     }
-  }
+  };
 
   return (
     <Container>
@@ -45,6 +62,8 @@ export default function FormularioProducto() {
       <Button onPress={() => incrementarUno()}>
         <Icon name="remove" />
       </Button>
+
+      <Text>Total: $ {total}</Text>
     </Container>
   );
 }
