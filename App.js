@@ -3,6 +3,7 @@ import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+
 import NuevoProducto from "./views/NuevoProducto";
 import Menu from "./views/Menu";
 import DetalleProducto from "./views/DetalleProducto";
@@ -10,11 +11,15 @@ import FormularioProducto from "./views/FormularioProducto";
 import ResumenPedido from "./views/ResumenPedido";
 import { ProgresoPedido } from "./views/ProgresoPedido";
 
+//Importar el state de context
+import { FirebaseState } from "./context/firebase/firebaseState";
+
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <>
+    <FirebaseState>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -70,6 +75,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </FirebaseState>
     </>
   );
 }
