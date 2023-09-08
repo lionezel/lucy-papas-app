@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Text } from "react-native";
+import { Alert, Text } from "react-native";
 import { PedidoContext } from "../context/pedidos/pedidosContext";
 import { Button, Container, Image, List } from "native-base";
 import { globalStyles } from "../styles/global";
@@ -26,6 +26,26 @@ export default function ResumenPedido() {
     mostrarResumen(nuevoTotal);
   };
 
+  //Redirecciona al pregreso pedido
+  const progresoPedido = () => {
+    Alert.alert(
+      "Revisa tu pedido",
+      "Una vez que realizas tu pedido, no podras cambiarlo",
+      [
+        {
+          text: "Confirmar",
+          onPress: () => {
+            navigation.navigate("ProgresoPedido");
+          },
+        },
+        {
+          text: "Revisar",
+          style: "cancel",
+        },
+      ]
+    );
+  };
+
   return (
     <Container style={globalStyles.contenedor}>
       <Text>Resumen pedido</Text>
@@ -49,10 +69,7 @@ export default function ResumenPedido() {
         <Text style={globalStyles.botonTexto}>Seguir pidiendo</Text>
       </Button>
 
-      <Button
-        style={globalStyles.boton}
-        onPress={() => navigation.navigate("ProgresoPedido")}
-      >
+      <Button style={globalStyles.boton} onPress={() => progresoPedido()}>
         <Text style={globalStyles.botonTexto}>Ordenar pidiendo</Text>
       </Button>
     </Container>
