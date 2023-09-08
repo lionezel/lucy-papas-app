@@ -4,9 +4,9 @@ import { PedidoContext } from '../context/pedidos/pedidosContext'
 
 export const ProgresoPedido = () => {
 
-  const {  } = useContext(PedidoContext)
+  const { idpedido } = useContext(PedidoContext)
 
   return (
-    <Text>Desde progreso</Text>
+    <Text>{idpedido}</Text>
   )
 }

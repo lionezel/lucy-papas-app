@@ -11,7 +11,7 @@ export default function ResumenPedido() {
   const navigation = useNavigation();
 
   //Context de pedido
-  const { pedido, total, mostrarResumen, eliminarPorducto } =
+  const { pedido, total, mostrarResumen, eliminarPorducto, pedidoOrdenado } =
     useContext(PedidoContext);
 
   useEffect(() => {
@@ -49,13 +49,14 @@ export default function ResumenPedido() {
               const pedido = await firebase.db
                 .collection('ordenes')
                 .add(pedidoObj);
-              console.log(pedido);
+                pedidoOrdenado(pedido.id)
             } catch (error) {
               console.log(error);
             }
 
             //Escribir el pedido en firebase
 
+            //Redireccionar al progreso
             navigation.navigate("ProgresoPedido");
           },
         },

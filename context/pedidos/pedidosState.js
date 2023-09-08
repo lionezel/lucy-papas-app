@@ -6,6 +6,7 @@ import {
   CONFIRMAR_ORDENAR_PRODUCTO,
   ELIMINAR_PRODUCTO,
   MOSTRAR_REUSMEN,
+  PEDIDO_ORDENADO,
   SELECCIONAR_PRODUCTO,
 } from "../../types";
 
@@ -15,6 +16,7 @@ export const PedidosState = (props) => {
     pedido: [],
     producto: null,
     total: 0,
+    idpedido: '',
   };
 
   //useReducer con dispatch para ejecutar las funciones
@@ -52,16 +54,26 @@ export const PedidosState = (props) => {
     });
   };
 
+  //
+  const pedidoOrdenado = (id) => {
+    dispatch({
+      type: PEDIDO_ORDENADO,
+      payload: id,
+    });
+  };
+
   return (
     <PedidoContext.Provider
       value={{
         pedido: state.pedido,
         producto: state.producto,
         total: state.total,
+        idpedido: state.idpedido,
         seleccionarProducto,
         guardarProducto,
         mostrarResumen,
-        eliminarPorducto
+        eliminarPorducto,
+        pedidoOrdenado,
       }}
     >
       {props.children}
