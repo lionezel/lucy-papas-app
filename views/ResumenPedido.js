@@ -4,13 +4,15 @@ import { PedidoContext } from "../context/pedidos/pedidosContext";
 import { Button, Container, Image, List } from "native-base";
 import { globalStyles } from "../styles/global";
 import { useNavigation } from "@react-navigation/native";
+import {firebase }from "../firebase/firebase";
 
 export default function ResumenPedido() {
   //Redireccionar
   const navigation = useNavigation();
 
   //Context de pedido
-  const { pedido, total, mostrarResumen, eliminarPorducto } = useContext(PedidoContext);
+  const { pedido, total, mostrarResumen, eliminarPorducto } =
+    useContext(PedidoContext);
 
   useEffect(() => {
     calcularTotal();
@@ -34,7 +36,26 @@ export default function ResumenPedido() {
       [
         {
           text: "Confirmar",
-          onPress: () => {
+          onPress: async () => {
+            //Crear un objeto
+            const pedidoObj = {
+              tiempoentrega: 0,
+              completado: false,
+              total: Number(total),
+              orden: pedido, //Arrray
+              creado: Date.now(),
+            };
+            try {
+              const pedido = await firebase.db
+                .collection('ordenes')
+                .add(pedidoObj);
+              console.log(pedido);
+            } catch (error) {
+              console.log(error);
+            }
+
+            //Escribir el pedido en firebase
+
             navigation.navigate("ProgresoPedido");
           },
         },
@@ -57,7 +78,7 @@ export default function ResumenPedido() {
           onPress: () => {
             //Eliminar del state
             eliminarPorducto(id);
-            console.log(id)
+            console.log(id);
 
             //Calcular
           },
@@ -68,7 +89,7 @@ export default function ResumenPedido() {
         },
       ]
     );
-  }
+  };
 
   return (
     <Container style={globalStyles.contenedor}>
@@ -82,7 +103,7 @@ export default function ResumenPedido() {
             <Text>Cantidad: {cantidad}</Text>
             <Text>Precio: $ {precio}</Text>
 
-            <Button onPress={()=> confirmarEliminacion(id)}>
+            <Button onPress={() => confirmarEliminacion(id)}>
               <Text>Eliminar</Text>
             </Button>
           </List>
