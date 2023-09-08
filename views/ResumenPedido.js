@@ -1,23 +1,30 @@
 import React, { useContext, useEffect } from "react";
 import { Text } from "react-native";
 import { PedidoContext } from "../context/pedidos/pedidosContext";
-import { Container, Image, List } from "native-base";
+import { Button, Container, Image, List } from "native-base";
 import { globalStyles } from "../styles/global";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ResumenPedido() {
+  //Redireccionar
+  const navigation = useNavigation();
+
   //Context de pedido
   const { pedido, total, mostrarResumen } = useContext(PedidoContext);
 
   useEffect(() => {
-    calcularTotal()
-  }, [pedido])
+    calcularTotal();
+  }, [pedido]);
 
   const calcularTotal = () => {
-    let nuevoTotal = 1
-    nuevoTotal = pedido.reduce((nuevoTotal, articulo) => nuevoTotal + articulo.total, 0)
+    let nuevoTotal = 1;
+    nuevoTotal = pedido.reduce(
+      (nuevoTotal, articulo) => nuevoTotal + articulo.total,
+      0
+    );
 
-    mostrarResumen(nuevoTotal)
-  }
+    mostrarResumen(nuevoTotal);
+  };
 
   return (
     <Container style={globalStyles.contenedor}>
@@ -32,9 +39,22 @@ export default function ResumenPedido() {
             <Text>Precio: $ {precio}</Text>
           </List>
         );
-      })}  
+      })}
 
       <Text> Total a pagar: $ {total} </Text>
+      <Button
+        style={globalStyles.boton}
+        onPress={() => navigation.navigate("Menu")}
+      >
+        <Text style={globalStyles.botonTexto}>Seguir pidiendo</Text>
+      </Button>
+
+      <Button
+        style={globalStyles.boton}
+        onPress={() => navigation.navigate("ProgresoPedido")}
+      >
+        <Text style={globalStyles.botonTexto}>Ordenar pidiendo</Text>
+      </Button>
     </Container>
   );
 }

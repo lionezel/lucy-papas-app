@@ -15,6 +15,7 @@ import { ProgresoPedido } from "./views/ProgresoPedido";
 //Importar el state de context
 import { FirebaseState } from "./context/firebase/firebaseState";
 import { PedidosState } from "./context/pedidos/pedidosState";
+import { BotonResumen } from "./components/shared/BotonResumen";
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,7 @@ export default function App() {
                   component={Menu}
                   options={{
                     title: "Nuestro menu",
+                    headerRight: props => <BotonResumen />
                   }}
                 />
                 <Stack.Screen
