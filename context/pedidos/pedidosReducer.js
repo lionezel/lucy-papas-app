@@ -4,12 +4,12 @@ export default (state, action) => {
   switch (action.type) {
     case SELECCIONAR_PRODUCTO:
       return {
-        ...state.SELECCIONAR_PRODUCTO,
+        ...state,
         producto: action.payload,
       };
     case CONFIRMAR_ORDENAR_PRODUCTO:
       return {
-        ...state.CONFIRMAR_ORDENAR_PRODUCTO,
+        ...state,
         pedido: [...state.pedido, action.payload],
       };
     default:

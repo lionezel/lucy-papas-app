@@ -65,7 +65,8 @@ export default function FormularioProducto() {
               cantidad,
               total,
             };
-            guardarProducto(pedido);
+            guardarProducto(pedido)
+            console.log(pedido)
             //Navegar hacia el resumen
             navigation.navigate("ResumenPedido");
           },

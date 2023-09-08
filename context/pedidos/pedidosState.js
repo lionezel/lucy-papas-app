@@ -25,6 +25,7 @@ export const PedidosState = (props) => {
   //Cuando el usuario confirma un producto
   const guardarProducto = (pedido) => {
     dispatch({
+      type: CONFIRMAR_ORDENAR_PRODUCTO,
       payload: pedido,
     });
   };
