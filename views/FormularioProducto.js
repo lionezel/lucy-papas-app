@@ -11,6 +11,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Alert, Text } from "react-native";
 import { PedidoContext } from "../context/pedidos/pedidosContext";
 import { globalStyles } from "../styles/global";
+import { useNavigation } from "@react-navigation/native";
 
 export default function FormularioProducto() {
   //State para cantidades
@@ -18,8 +19,11 @@ export default function FormularioProducto() {
   const [total, setTotal] = useState(0);
 
   //Context de pedido
-  const { producto } = useContext(PedidoContext);
+  const { producto, guardarProducto } = useContext(PedidoContext);
   const { precio } = producto;
+
+  //Redireccionar
+  const navigation = useNavigation();
 
   //En cuanto el componente carga, calcular la cantidad  a pagar
   useEffect(() => {
@@ -49,24 +53,30 @@ export default function FormularioProducto() {
   //Confirma si la orden es correcta
   const confirmarOrden = () => {
     Alert.alert(
-      '¿Deseas confirmar tu pedido?',
-      'Un pedido confirmado ya no se podra modificar',
+      "¿Deseas confirmar tu pedido?",
+      "Un pedido confirmado ya no se podra modificar",
       [
         {
-          text: 'Confirmar',
+          text: "Confirmar",
           onPress: () => {
             //Alamcenar el pedido al pedido principal
-
+            const pedido = {
+              ...producto,
+              cantidad,
+              total,
+            };
+            guardarProducto(pedido);
             //Navegar hacia el resumen
+            navigation.navigate("ResumenPedido");
           },
         },
         {
-          text: 'Cancelar',
-          style: 'cancel'
-        }
+          text: "Cancelar",
+          style: "cancel",
+        },
       ]
-    )
-  }
+    );
+  };
 
   return (
     <Container>
@@ -88,10 +98,7 @@ export default function FormularioProducto() {
 
       <Text>Total: $ {total}</Text>
 
-      <Button
-        style={globalStyles.boton}
-        onPress={() => confirmarOrden() }
-      >
+      <Button style={globalStyles.boton} onPress={() => confirmarOrden()}>
         <Text style={globalStyles.botonTexto}>Agregar al producto</Text>
       </Button>
     </Container>
