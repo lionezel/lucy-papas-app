@@ -10,7 +10,7 @@ export default function ResumenPedido() {
   const navigation = useNavigation();
 
   //Context de pedido
-  const { pedido, total, mostrarResumen } = useContext(PedidoContext);
+  const { pedido, total, mostrarResumen, eliminarPorducto } = useContext(PedidoContext);
 
   useEffect(() => {
     calcularTotal();
@@ -46,6 +46,30 @@ export default function ResumenPedido() {
     );
   };
 
+  //Elimina un producto del arreglo de pedido
+  const confirmarEliminacion = (id) => {
+    Alert.alert(
+      "¿Deseas eliminar este articulo",
+      "Una vez eliminado no podras recuperar",
+      [
+        {
+          text: "Confirmar",
+          onPress: () => {
+            //Eliminar del state
+            eliminarPorducto(id);
+            console.log(id)
+
+            //Calcular
+          },
+        },
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+      ]
+    );
+  }
+
   return (
     <Container style={globalStyles.contenedor}>
       <Text>Resumen pedido</Text>
@@ -57,6 +81,10 @@ export default function ResumenPedido() {
             <Text>{nombre}</Text>
             <Text>Cantidad: {cantidad}</Text>
             <Text>Precio: $ {precio}</Text>
+
+            <Button onPress={()=> confirmarEliminacion(id)}>
+              <Text>Eliminar</Text>
+            </Button>
           </List>
         );
       })}

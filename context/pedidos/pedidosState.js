@@ -2,7 +2,12 @@ import React, { useReducer } from "react";
 
 import { PedidoContext } from "./pedidosContext";
 import PedidosReducer from "./pedidosReducer";
-import { CONFIRMAR_ORDENAR_PRODUCTO, MOSTRAR_REUSMEN, SELECCIONAR_PRODUCTO } from "../../types";
+import {
+  CONFIRMAR_ORDENAR_PRODUCTO,
+  ELIMINAR_PRODUCTO,
+  MOSTRAR_REUSMEN,
+  SELECCIONAR_PRODUCTO,
+} from "../../types";
 
 export const PedidosState = (props) => {
   //Crear state inicial
@@ -32,12 +37,20 @@ export const PedidosState = (props) => {
   };
 
   //Muestra el total a pagar en el resumen
-  const mostrarResumen = total => {
+  const mostrarResumen = (total) => {
     dispatch({
       type: MOSTRAR_REUSMEN,
-      payload: total
-    })
-  } 
+      payload: total,
+    });
+  };
+
+  //Elimina un articulo del carrito
+  const eliminarPorducto = (id) => {
+    dispatch({
+      type: ELIMINAR_PRODUCTO,
+      payload: id,
+    });
+  };
 
   return (
     <PedidoContext.Provider
@@ -47,7 +60,8 @@ export const PedidosState = (props) => {
         total: state.total,
         seleccionarProducto,
         guardarProducto,
-        mostrarResumen
+        mostrarResumen,
+        eliminarPorducto
       }}
     >
       {props.children}
