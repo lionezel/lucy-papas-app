@@ -1,12 +1,24 @@
-import React, { useContext } from 'react'
-import { Text } from 'react-native'
-import { PedidoContext } from '../context/pedidos/pedidosContext'
+import React, { useContext, useEffect, useState } from "react";
+import { Text } from "react-native";
+import { PedidoContext } from "../context/pedidos/pedidosContext";
+import { firebase } from "../firebase/firebase";
 
 export const ProgresoPedido = () => {
+  const { idpedido } = useContext(PedidoContext);
 
-  const { idpedido } = useContext(PedidoContext)
+  const [tiempo, setTiempo] = useState(0);
 
-  return (
-    <Text>{idpedido}</Text>
-  )
-}
+  useEffect(() => {
+    const obtenerProducto = () => {
+      firebase.db
+        .collection('ordenes')
+        .doc(idpedido)
+        .onSnapshot(function (doc) {
+          setTiempo(doc.data().timpoentrega);
+        });
+    };
+    obtenerProducto();
+  }, []);
+
+  return <Text>{tiempo}</Text>;
+};
