@@ -54,7 +54,7 @@ export const PedidosState = (props) => {
     });
   };
 
-  //
+  //PEDIDO ORDEBADO
   const pedidoOrdenado = (id) => {
     dispatch({
       type: PEDIDO_ORDENADO,
