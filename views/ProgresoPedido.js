@@ -4,8 +4,12 @@ import { PedidoContext } from "../context/pedidos/pedidosContext";
 import { firebase } from "../firebase/firebase";
 import { Button, Container, View } from "native-base";
 import Countdown from "react-countdown";
+import { globalStyles } from "../styles/global";
+import { useNavigation } from "@react-navigation/native";
 
 export const ProgresoPedido = () => {
+  const navigate = useNavigation();
+
   const { idpedido } = useContext(PedidoContext);
 
   const [tiempo, setTiempo] = useState(0);
@@ -60,8 +64,13 @@ export const ProgresoPedido = () => {
             <Text>Orden lista</Text>
             <Text>Por favor, pase a recoger su pedido</Text>
 
-            <Button>
-              <Text>Comenzar una orden nueva</Text>
+            <Button
+              style={globalStyles.boton}
+              onPress={() => navigate.navigate("Nueva Orden")}
+            >
+              <Text style={globalStyles.botonTexto}>
+                Comenzar una orden nueva
+              </Text>
             </Button>
           </>
         )}
