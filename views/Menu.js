@@ -63,7 +63,7 @@ export default function Menu() {
                   alt={nombre}
                 />
                 <View style={estilosMenu.text}>
-                  <Text style={{ fontWeight: "bold" }}>{nombre}</Text>
+                  <Text style={{ fontWeight: "bold", fontSize: 18 }}>{nombre}</Text>
                   <Text>{descripcion}</Text>
                   <Text style={{ fontWeight: "bold" }}>Precio: $ {precio}</Text>
                 </View>
@@ -78,18 +78,22 @@ export default function Menu() {
 }
 
 const estilosMenu = StyleSheet.create({
+
   card: {
     flexDirection: "row",
     margin: "5%",
+   
   },
 
   text: {
     marginHorizontal: "5%",
+    fontSize: 200
   },
 
   categoria: {
     marginLeft: "5%",
     fontWeight: "bold",
+    fontSize: 15
   },
   cotenido_categoria: {},
 });
