@@ -5,7 +5,7 @@ import { FirebaseContext } from "../context/firebase/firebaseContext";
 import { useEffect } from "react";
 
 import { globalStyles } from "../styles/global";
-import { Container, Divider, Image, List, Text } from "native-base";
+import { Container, Divider, Image, List, Text, View } from "native-base";
 import { Fragment } from "react";
 import { PedidoContext } from "../context/pedidos/pedidosContext";
 import { useNavigation } from "@react-navigation/native";
@@ -42,23 +42,32 @@ export default function Menu() {
 
         return (
           <Fragment key={id}>
-            {mostrarHeading(categoria, i)}
+            <View style={estilosMenu.cotenido_categoria}>
+              <Text style={estilosMenu.categoria}>
+                {mostrarHeading(categoria, i)}
+              </Text>
+            </View>
             <Pressable
               onPress={() => {
                 seleccionarProducto(producto);
-                navigation.navigate('DetalleProducto')
+                navigation.navigate("DetalleProducto");
               }}
             >
-              <Image
-                size={100}
-                borderRadius={100}
-                source={{
-                  uri: imagen,
-                }}
-              />
-              <Text style={{ fontWeight: "bold" }}>{nombre}</Text>
-              <Text>{descripcion}</Text>
-              <Text> $ {precio}</Text>
+              <View style={estilosMenu.card}>
+                <Image
+                  size={100}
+                  borderRadius={2}
+                  source={{
+                    uri: imagen,
+                  }}
+                  alt={nombre}
+                />
+                <View style={estilosMenu.text}>
+                  <Text style={{ fontWeight: "bold" }}>{nombre}</Text>
+                  <Text>{descripcion}</Text>
+                  <Text style={{ fontWeight: "bold" }}>Precio: $ {precio}</Text>
+                </View>
+              </View>
             </Pressable>
             <Divider />
           </Fragment>
@@ -67,3 +76,20 @@ export default function Menu() {
     </Container>
   );
 }
+
+const estilosMenu = StyleSheet.create({
+  card: {
+    flexDirection: "row",
+    margin: "5%",
+  },
+
+  text: {
+    marginHorizontal: "5%",
+  },
+
+  categoria: {
+    marginLeft: "5%",
+    fontWeight: "bold",
+  },
+  cotenido_categoria: {},
+});

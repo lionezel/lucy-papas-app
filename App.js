@@ -33,6 +33,7 @@ export default function App() {
                   },
                   headerTitleStyle: {
                     fontWeight: "bold",
+                    marginLeft: "25%"
                   },
                   headerTintColor: '#000'
                 }}

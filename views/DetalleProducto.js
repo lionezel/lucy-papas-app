@@ -16,7 +16,7 @@ export default function DetalleProducto() {
   return (
     <Container style={globalStyles.contenedor}>
       <Text>{nombre}</Text>
-      <Image size={600} source={{ uri: imagen }} />
+      <Image size={200} source={{ uri: imagen }} alt={nombre} />
       <Button
         style={globalStyles.boton}
         onPress={() => navigation.navigate("FormularioProducto")}
